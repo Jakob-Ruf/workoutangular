@@ -1,15 +1,17 @@
+<div class="mainContent">
   <div *ngIf="this.workout">
-    {{this.workout.name}} <br />
-    {{this.workout.getDuration()}}<br />
-    <p *ngFor="let round of this.workout.rounds">
-      <span *ngFor="let action of round.exercises">
-        <span [ngClass]="{'activeAction': action.isActive}">
-          {{action.isPause ? '-' : 'O'}}
+      {{this.workout.name}} <br />
+      {{this.workout.getDuration()}}<br />
+      <p *ngFor="let round of this.workout.rounds">
+        <span *ngFor="let action of round.exercises">
+          <span [ngClass]="{'activeAction': action.isActive}">
+            {{action.isPause ? '-' : 'O'}}
+          </span>
         </span>
-      </span>
-    </p>
+      </p>
 
-  </div>
-<button (click)="start()">TIme</button><br /><br />
-<span class="myBig">{{this.status.timeRemaining}}</span><br />
-<span class="myBig" *ngIf="this.activeAction">{{this.activeAction.name}}</span>
+    </div>
+  <button (click)="start()">TIme</button><br /><br />
+  <span class="myBig">{{this.status.timeRemaining}}</span><br />
+  <span class="myBig" *ngIf="this.activeAction">{{this.activeAction.name}}</span>
+</div>
