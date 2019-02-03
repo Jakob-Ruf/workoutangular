@@ -1,3 +1,38 @@
-<p>
-  new-workout works!
-</p>
+<div class="myDialog" *ngIf="this.newAction">
+  <div *ngIf="!this.newAction.isPause"><span>Name: </span><input (keyup)="onKeyUpNewAction($event)" /><br /></div>
+  <div>
+    <span>Duration: </span>
+    <button (click)="onChangeDuration(-10)">-10</button>
+    <button (click)="onChangeDuration(-5)">-5</button>
+    <span width="100px">{{this.newAction.duration}}</span>
+    <button (click)="onChangeDuration(+5)">+5</button>
+    <button (click)="onChangeDuration(+10)">+10</button>
+  </div>
+  <button (click)="onClickConfirmAdd()">Add</button><button (click)="onClickCancelAdd()">Cancel</button>
+</div>
+<div class="myOverlay" *ngIf="this.newAction" ></div>
+
+
+
+
+<div *ngIf="this.workout">
+  <span>Duration: {{(""+(workout.getDuration() / 60)).split(".")[0]}}:{{workout.getDuration() % 60}}</span>
+  <ul>
+    <li *ngFor="let round of this.workout.rounds; index as i">
+      <span>Round {{i+1}} - Duration: {{round.getDuration()}}</span>
+      <button (click)="duplicateRound(i)">00</button>
+      <button (click)="deleteRound(i)">X</button>
+      <ul>
+        <li *ngFor="let action of round.exercises; index as j">
+          <span [ngClass]="{'activeAction': action.isActive}">{{action.name}}: {{action.duration}}</span><button (click)="deleteAction(i, j)">X</button>
+        </li>
+        <button (click)="addPause(i)">+Pause</button>
+        <button (click)="addExercise(i)">+ Exercise</button>
+      </ul>
+    </li>
+    <button (click)="addRound($event)">Add round</button>
+  </ul>
+  <button (click)="onCreate()">Create</button>
+  <button (click)="onConfirmWorkoutCreation()">Confirm and set workout</button>
+
+</div>

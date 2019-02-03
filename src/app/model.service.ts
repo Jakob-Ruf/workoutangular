@@ -6,7 +6,11 @@ import {Workout} from './classes/Workout';
 })
 export class ModelService {
   workout: Workout;
-  constructor() {
-    // this.workout = new Workout();
+  constructor() {}
+  getWorkout () {
+    return this.workout;
+  }
+  setWorkout (workout: Workout) {
+    this.workout = workout;
   }
 }

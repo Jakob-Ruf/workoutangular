@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@primary: #2196f3;
+@primary-light: #6ec6ff;
+@primary-dark: #0069c0;
+@secondary: #ffa000;
+@secondary-light: #ffd149;
+@secondary-dark: #c67100;
+@grey: #eeeef0;
+
+body {
+  margin: 0px;
+  font-family: 'Roboto', 'Ubuntu', '72', sans-serif;
+  background: @grey;
+  a {
+    color: @secondary;
+  }
+}
+
 .myOverlay {
   width: 100%;
   height: 100%;
@@ -6,7 +23,7 @@
   top: 0;
   left: 0;
   z-index: 100;
-  background-color: rgba(00,00,00, 0.5);
+  background-color: fade(black, 50%);
 }
 
 .myDialog {
@@ -16,10 +33,27 @@
   top: 50px;
   left: 50px;
   z-index: 101;
-  background-color: white;
+  background-color: @secondary-light;
 }
 
 .activeAction {
-  color: red;
+  color: @secondary;
   font-size: 1.3rem;
+}
+
+.myBig {
+  font-size: 3rem;
+}
+
+
+.navigationBar {
+  background-color: @primary;
+    .navigationIcon {
+      font-size: 3rem;
+      // width: 28%;
+      padding-left: 10%;
+      padding-right: 10%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 }
