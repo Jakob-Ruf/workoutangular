@@ -8,6 +8,8 @@ import * as lodash from 'lodash';
 import { ModelService } from '../model.service';
 import { SerializerService } from '../serializer.service';
 import { FormatterService } from '../formatter.service';
+import * as staticData from '../../assets/data.json';
+
 
 @Component({
   selector: 'app-new-workout',
@@ -18,13 +20,18 @@ export class NewWorkoutComponent implements OnInit {
   workout: Workout = new Workout('Neu', []);
   newRound: Round = null;
   newAction: Action = null;
-  roundIndex: number;
-  exerciseIndex: number;
-  addWarmup: boolean;
+  roundIndex: number = 0;
+  exerciseIndex: number = 0;
+  addWarmup: boolean = false;
 
-  constructor(private modelService: ModelService, public formatter: FormatterService) { }
+  constructor(
+    private modelService: ModelService,
+    public formatter: FormatterService,
+    private serializer: SerializerService
+    ) { }
 
   ngOnInit() {
+    this.workout = this.modelService.getWorkout();
   }
 
   deleteAction (round: number, action: number) {
@@ -93,9 +100,12 @@ export class NewWorkoutComponent implements OnInit {
   }
 
   onConfirmWorkoutCreation () {
-    const serialized = this.serializer.serialize(this.workout);
-    const workout = this.serializer.deserialize(serialized);
-    this.modelService.setWorkout(workout);
+    if (this.addWarmup) {
+      const warmup: Round = this.serializer.deserializeRound(JSON.stringify(staticData.default.warmup));
+      this.workout.rounds.unshift(warmup);
+    }
+    this.workout.rounds.unshift(new Round([new Pause(10)]));
+    this.modelService.setWorkout(this.workout);
   }
 
 
