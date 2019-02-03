@@ -1,0 +1,18 @@
+image: node:latest
+ 
+cache:
+  paths:
+    - node_modules/
+ 
+stages:
+  - deploy
+ 
+deploy:
+  stage: deploy
+  environment:
+    name: prod
+  script:
+    - npm install
+    - npm build --prod
+  only:
+    - master
