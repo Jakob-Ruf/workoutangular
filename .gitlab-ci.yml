@@ -16,3 +16,5 @@ deploy:
     - npm build --prod
   only:
     - master
+  artifacts:
+    - dist/fullcontrol
