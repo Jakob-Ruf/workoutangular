@@ -8,7 +8,7 @@ export class ModelService {
   workout: Workout;
   constructor() {}
   getWorkout () {
-    return this.workout;
+    return this.workout || new Workout('NEW', []);
   }
   setWorkout (workout: Workout) {
     this.workout = workout;
