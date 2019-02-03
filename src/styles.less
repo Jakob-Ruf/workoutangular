@@ -6,13 +6,14 @@
 @secondary-light: #ffd149;
 @secondary-dark: #c67100;
 @grey: #eeeef0;
+@transparent: rgba(0,0,0,0);
 
 body {
   margin: 0px;
-  font-family: 'Roboto', 'Ubuntu', '72', sans-serif;
+  font-family: 'Verdana', sans-serif;
   background: @grey;
   a {
-    color: @secondary;
+    color: black;
   }
 }
 
@@ -47,7 +48,12 @@ body {
 
 
 .navigationBar {
-  background-color: @primary;
+  // background-color: fade(@primary-dark, 80%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
     .navigationIcon {
       font-size: 3rem;
       // width: 28%;
@@ -56,4 +62,79 @@ body {
       padding-top: 10px;
       padding-bottom: 10px;
     }
+    table {
+      width: 100%;
+      border: none;
+    }
+    td {
+      padding: none;
+      text-align: center;
+      width: 33%;
+      background-color: @primary;
+    }
+    td.activeNav {
+      background-color: @secondary;
+    }
+}
+
+.button {
+  cursor: pointer;
+  height: 3rem;
+  padding: 1rem;
+  margin: 5px 5px 5px 5px;
+  border: 1px solid @transparent;
+  background: fade(@primary-dark, 30%);
+  border-radius: 3px;
+  transition-duration: 500ms;
+  &:hover {
+    border: 1px solid @primary-dark;
+    background: @transparent;
+  }
+}
+
+li {
+  list-style-type: none;
+  div {
+    height: 3rem;
+    span.actionDetail {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.liSymbol {
+  width: 30px;
+  height: 30px;
+}
+
+.mainContent {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.buttonBar {
+  height: auto;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  background: @transparent;
+  text-align: right;
+}
+
+ul {
+  padding-inline-start: 10px;
+}
+
+.smallButton {
+  float: right;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+}
+
+.headerWorkoutRound {
+  height: 3rem;
+  span {
+    margin-top: 1rem;
+  }
 }
