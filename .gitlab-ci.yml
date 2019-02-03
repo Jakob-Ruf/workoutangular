@@ -17,4 +17,5 @@ deploy:
   only:
     - master
   artifacts:
-    - dist
+    paths:
+    - dist/fullcontrol
