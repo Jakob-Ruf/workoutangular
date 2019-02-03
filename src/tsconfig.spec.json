@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "types": [
       "jasmine",
       "node"
