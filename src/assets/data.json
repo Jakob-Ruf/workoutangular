@@ -1,0 +1,69 @@
+{
+  "warmup": {
+    "exercises": [
+      {
+        "name": "Jumping Jacks",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Lunge Rotations",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Mountain Climber Twist",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Walking Kicks",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Arm Rotation Forward",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Arm Rotation Backward",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 10,
+        "isPause": true
+      },
+      {
+        "name": "Wrist stretching",
+        "duration": 45,
+        "isPause": false
+      },
+      {
+        "duration": 40,
+        "isPause": true
+      }
+    ]
+  }
+}
