@@ -1,7 +1,23 @@
 <!-- <button (click)="onPlayAudio()">Click</button> -->
 <div class="navigationBar">
-  <a routerLink="/new" routerLinkActive="active"><i class="navigationIcon fas fa-plus-square"></i></a>
-  <a routerLink="/active" routerLinkActive="active"><i class="navigationIcon fas fa-stopwatch"></i></a>
-  <a routerLink="/load" routerLinkActive="active"><i class="navigationIcon fas fa-file-upload"></i></a>
+  <table>
+    <tr>
+      <td [ngClass]="{'activeNav': this.activeNav === 0}">
+          <a routerLink="/new" routerLinkActive="active" (click)="this.activeNav = 0">
+            <i class="navigationIcon fas fa-edit"></i>
+          </a>
+      </td>
+      <td [ngClass]="{'activeNav': this.activeNav === 1}">
+          <a routerLink="/active" routerLinkActive="active" (click)="this.activeNav = 1">
+            <i class="navigationIcon fas fa-stopwatch"></i>
+          </a>
+      </td>
+      <td [ngClass]="{'activeNav': this.activeNav === 2}">
+          <a routerLink="/load" routerLinkActive="active" (click)="this.activeNav = 2">
+            <i class="navigationIcon fas fa-file-upload"></i>
+          </a>
+      </td>
+    </tr>
+  </table>
 </div>
 <router-outlet></router-outlet>
