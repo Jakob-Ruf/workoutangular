@@ -7,6 +7,7 @@ import { Workout } from '../classes/Workout';
 import * as lodash from 'lodash';
 import { ModelService } from '../model.service';
 import { SerializerService } from '../serializer.service';
+import { FormatterService } from '../formatter.service';
 
 @Component({
   selector: 'app-new-workout',
@@ -19,8 +20,9 @@ export class NewWorkoutComponent implements OnInit {
   newAction: Action = null;
   roundIndex: number;
   exerciseIndex: number;
+  addWarmup: boolean;
 
-  constructor(private modelService: ModelService, private serializer: SerializerService) { }
+  constructor(private modelService: ModelService, public formatter: FormatterService) { }
 
   ngOnInit() {
   }

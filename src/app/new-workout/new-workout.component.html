@@ -15,24 +15,41 @@
 
 
 
-<div *ngIf="this.workout">
-  <span>Duration: {{(""+(workout.getDuration() / 60)).split(".")[0]}}:{{workout.getDuration() % 60}}</span>
+<div class="mainContent" *ngIf="this.workout">
+  <span>Total duration: {{this.formatter.formatDuration(this.workout.getDuration())}}</span>
+  <br />
+  <span>Exercise duration: {{(this.formatter.formatDuration(this.workout.getDurationWithoutPauses()))}}</span>
   <ul>
-    <li *ngFor="let round of this.workout.rounds; index as i">
-      <span>Round {{i+1}} - Duration: {{round.getDuration()}}</span>
-      <button (click)="duplicateRound(i)">00</button>
-      <button (click)="deleteRound(i)">X</button>
+    <li *ngFor="let round of this.workout.rounds; index as i" class="newWorkoutRound">
+      <div class="headerWorkoutRound">
+        <span >Round {{i+1}} - Duration: {{round.getDuration()}}s</span>
+        <button class="smallButton button" (click)="deleteRound(i)"><i class="fas fa-times"></i></button>
+        <button class="smallButton button" (click)="duplicateRound(i)"><i class="fas fa-copy"></i></button>
+      </div>
       <ul>
-        <li *ngFor="let action of round.exercises; index as j">
-          <span [ngClass]="{'activeAction': action.isActive}">{{action.name}}: {{action.duration}}</span><button (click)="deleteAction(i, j)">X</button>
+
+
+        <li *ngFor="let action of round.exercises; index as j" class="newWorkoutAction">
+          <div>
+            <i [ngClass]="{'fas liSymbol': true, 'fa-pause': action.isPause, 'fa-running': !action.isPause}"></i>
+            <span [ngClass]="{'actionDetail': true, 'activeAction': action.isActive}">{{action.name}}: {{action.duration}}s</span>
+            <button class="smallButton button" (click)="deleteAction(i, j)"><span class="fas fa-times"></span></button>
+          </div>
         </li>
-        <button (click)="addPause(i)">+Pause</button>
-        <button (click)="addExercise(i)">+ Exercise</button>
+
+
+        <button class="button" (click)="addPause(i)"><i class="fas fa-plus"></i>&nbsp;<i class="fas fa-pause"></i></button>
+        <button class="button" (click)="addExercise(i)"><i class="fas fa-plus"></i>&nbsp;<i class="fas fa-running"></i></button>
       </ul>
     </li>
-    <button (click)="addRound($event)">Add round</button>
   </ul>
-  <button (click)="onCreate()">Create</button>
-  <button (click)="onConfirmWorkoutCreation()">Confirm and set workout</button>
+  <button class="button" (click)="addRound($event)">Add round</button>
 
+</div>
+
+<button class="button" (click)="onCreate()">Create</button>
+<div class="buttonBar">
+  <input class="right" type="checkbox" name="generateWarmup" [checked]="this.addWarmup"/>
+    <span (click)="this.addWarmup = !this.addWarmup" class="right">Add warmup</span>
+  <button class="button right" (click)="onConfirmWorkoutCreation()">Confirm</button>
 </div>
