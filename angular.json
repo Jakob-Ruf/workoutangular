@@ -14,7 +14,6 @@
         }
       },
       "architect": {
-        "buildProd": "ng build --base-href=/your-project-slug/",
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
