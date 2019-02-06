@@ -101,7 +101,7 @@ export class NewWorkoutComponent implements OnInit {
 
   onConfirmWorkoutCreation () {
     if (this.addWarmup) {
-      const warmup: Round = this.serializer.deserializeRound(JSON.stringify(staticData.default.warmup));
+      const warmup: Round = this.serializer.deserializeRound(JSON.stringify(staticData.warmup));
       this.workout.rounds.unshift(warmup);
     }
     this.workout.rounds.unshift(new Round([new Pause(10)]));
