@@ -26,6 +26,9 @@ export class ActiveWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.workout = this.modelService.getWorkout();
+    if (this.workout.getDuration() === 0) {
+      this.workout = this.modelService.getSavedWorkouts()[0];
+    }
   }
 
   start () {

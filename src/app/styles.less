@@ -1,0 +1,90 @@
+@import "../colors.less";
+
+.navigationBar {
+  // background-color: fade(@primary-dark, 80%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+
+  .navigationIcon {
+    font-size: 3rem;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 10px;
+	padding-bottom: 10px;
+	transition-duration: 500ms;
+  }
+
+  table {
+    width: 100%;
+    border: none;
+  }
+
+  td {
+    cursor: pointer;
+    padding: none;
+    text-align: center;
+    width: 33%;
+	background-color: @primary;
+	transition-duration: 500ms;
+
+    i {
+      color: black;
+    }
+  }
+
+  td.activeNav {
+	background-color: @secondary;
+	transition-duration: 500ms;
+
+    i {
+      color: white;
+    }
+  }
+}
+
+
+.workoutHeader {
+  width: 100%;
+  td {
+    width: 33%;
+    background-color: fade(grey, 50%);
+    text-align: center;
+  }
+}
+
+.title {
+  font-size: 2.5rem;
+}
+
+.title2 {
+  height: 3rem;
+  vertical-align: center;
+  font-size: 2rem;
+}
+
+.title3 {
+  height: 3rem;
+  vertical-align: center;
+}
+
+.myFAB {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  background-color: red;
+  box-shadow: 3px 3px 10px black;
+  transition-duration: 500ms;
+  &:hover {
+    transform: translateX(1px);
+    transform: translateY(-3px);
+    transition-duration: 500ms;
+    box-shadow: 1px 1px 10px red;
+  }
+  i {
+    padding-left: 1rem;
+    padding-top: 1rem;
+  }
+}
