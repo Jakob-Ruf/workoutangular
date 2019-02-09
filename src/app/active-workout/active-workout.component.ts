@@ -69,6 +69,7 @@ export class ActiveWorkoutComponent implements OnInit {
       const text = exercise.toString();
       const speech: SpeechSynthesis = window.speechSynthesis;
       const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en';
       speech.speak(utterance);
     } else {
       const audio = new Audio('assets/Clock.wav');
