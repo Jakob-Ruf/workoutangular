@@ -1,3 +1,9 @@
-<p>
-  load-workout works!
-</p>
+<div class="mainContent">
+	<div *ngFor="let workout of this.workouts">
+		<p>{{workout.name}}</p>
+		<p>{{workout.getDuration()}}</p>
+		<p>{{workout.getDurationWithoutPauses()}}</p>
+		<p>{{workout.rounds.length}}</p>
+		<hr />
+	</div>
+</div>
