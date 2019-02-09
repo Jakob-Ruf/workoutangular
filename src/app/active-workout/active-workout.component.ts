@@ -71,7 +71,7 @@ export class ActiveWorkoutComponent implements OnInit {
       const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(text);
       speech.speak(utterance);
     } else {
-      const audio = new Audio('../assets/Clock.wav');
+      const audio = new Audio('assets/Clock.wav');
       audio.load();
       audio.play();
     }
@@ -110,7 +110,7 @@ export class ActiveWorkoutComponent implements OnInit {
   }
 
   playBell () {
-    const audio = new Audio('../assets/Bell2.wav');
+    const audio = new Audio('assets/Bell2.wav');
     audio.load();
     audio.play();
   }
