@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'new', component: NewWorkoutComponent },
   { path: 'active', component: ActiveWorkoutComponent},
   { path: 'load', component: LoadWorkoutComponent},
-  { path: '', redirectTo: '', pathMatch: 'full'}
+  { path: '', redirectTo: 'load', pathMatch: 'full'}
 ];
 
 @NgModule({
