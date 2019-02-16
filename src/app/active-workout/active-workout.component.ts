@@ -4,6 +4,7 @@ import { Workout } from '../classes/Workout';
 import { HelperService } from '../helper.service';
 import { Action } from '../classes/Action';
 import { Exercise } from '../classes/Exercise';
+import { Pause } from '../classes/Pause';
 
 @Component({
   selector: 'app-active-workout',
@@ -14,13 +15,14 @@ export class ActiveWorkoutComponent implements OnInit {
   workout: Workout;
   roundIndex = 0;
   exerciseIndex = 0;
-  activeAction: Action;
+  activeAction: Action = new Pause(60);
   status = {
     ticks : 0,
     myString : '',
     timeRemaining: 0
   };
   timer: any;
+  percentage = Math.floor((1 - (this.status.timeRemaining / this.activeAction.duration)) * 100);
 
   constructor(private modelService: ModelService, private helper: HelperService) { }
 
@@ -32,13 +34,14 @@ export class ActiveWorkoutComponent implements OnInit {
   }
 
   start () {
-    this.setNextActive();
+    this.setNextActive(true);
     this.setupTimer();
+    this.playBell();
     this.startNextTimer();
   }
 
-  setNextActive () {
-    if (!this.activeAction) { /*initially set active workout*/
+  setNextActive (firstStart: boolean) {
+    if (firstStart) { /*initially set active workout*/
       this.activeAction = this.workout.rounds[0].exercises[0];
       this.workout.rounds[0].exercises[0].isActive = true;
       this.roundIndex = 0;
@@ -106,7 +109,7 @@ export class ActiveWorkoutComponent implements OnInit {
   nextRound () {
     this.playBell();
     this.timer.stop();
-    if (this.setNextActive()) {
+    if (this.setNextActive(false)) {
       this.startNextTimer();
     } else {
       this.activeAction = new Exercise('DONE', 0);
