@@ -5,6 +5,7 @@ import { HelperService } from '../helper.service';
 import { Action } from '../classes/Action';
 import { Exercise } from '../classes/Exercise';
 import { Pause } from '../classes/Pause';
+import { FormatterService } from '../formatter.service';
 
 @Component({
   selector: 'app-active-workout',
@@ -13,18 +14,27 @@ import { Pause } from '../classes/Pause';
 })
 export class ActiveWorkoutComponent implements OnInit {
   workout: Workout;
-  roundIndex = 0;
-  exerciseIndex = 0;
+  roundIndex: number = 0;
+  exerciseIndex: number = 0;
   activeAction: Action = new Pause(60);
+  isRunning: boolean = false;
+  hasStarted: boolean = false;
+  settings = {
+    sound: true,
+    speak: true
+  }
   status = {
     ticks : 0,
     myString : '',
     timeRemaining: 0
   };
-  timer: any;
-  percentage = Math.floor((1 - (this.status.timeRemaining / this.activeAction.duration)) * 100);
+  timer: any = null;
 
-  constructor(private modelService: ModelService, private helper: HelperService) { }
+  constructor(
+    private modelService: ModelService,
+    private helper: HelperService,
+    public formatter: FormatterService
+    ) { }
 
   ngOnInit() {
     this.workout = this.modelService.getWorkout();
@@ -33,14 +43,14 @@ export class ActiveWorkoutComponent implements OnInit {
     }
   }
 
-  start () {
+  start (): void {
     this.setNextActive(true);
     this.setupTimer();
     this.playBell();
     this.startNextTimer();
   }
 
-  setNextActive (firstStart: boolean) {
+  setNextActive (firstStart: boolean): boolean {
     if (firstStart) { /*initially set active workout*/
       this.activeAction = this.workout.rounds[0].exercises[0];
       this.workout.rounds[0].exercises[0].isActive = true;
@@ -66,7 +76,7 @@ export class ActiveWorkoutComponent implements OnInit {
     return false;
   }
 
-  playTenSeconds() {
+  playTenSeconds(): void {
     if (this.activeAction.isPause) {
       let exercise = this.workout.rounds[this.roundIndex].exercises[this.exerciseIndex + 1];
       if (!exercise && this.workout.rounds[this.roundIndex + 1]) {
@@ -84,13 +94,13 @@ export class ActiveWorkoutComponent implements OnInit {
     }
   }
 
-  setupTimer () {
+  setupTimer (): void {
     this.timer = this.helper.getTimer();
     this.timer.on('tick', () => this.onTick.bind(this)());
     this.timer.on('done', () => this.nextRound.bind(this)());
   }
 
-  onTick () {
+  onTick (): void{
     this.status.timeRemaining -= 1;
     if (this.status.timeRemaining === 10) {
       this.playTenSeconds();
@@ -98,7 +108,7 @@ export class ActiveWorkoutComponent implements OnInit {
     this.status.ticks++;
   }
 
-  startNextTimer () {
+  startNextTimer (): void{
     this.timer.stop();
     this.status.ticks = 0;
     const duration = this.workout.rounds[this.roundIndex].exercises[this.exerciseIndex].duration;
@@ -106,7 +116,7 @@ export class ActiveWorkoutComponent implements OnInit {
     this.timer.start(duration * 1000);
   }
 
-  nextRound () {
+  nextRound (): void {
     this.playBell();
     this.timer.stop();
     if (this.setNextActive(false)) {
@@ -116,11 +126,32 @@ export class ActiveWorkoutComponent implements OnInit {
     }
   }
 
-  playBell () {
+  playBell (): void {
     const audio = new Audio('assets/Bell2.wav');
     audio.load();
     audio.play();
   }
 
+  onClickStartPause (): void {
+    if (!this.hasStarted) {
+      this.start();
+      this.isRunning = true;
+      this.hasStarted = true;
+    } else if (this.isRunning) {
+      this.timer.pause();
+      this.isRunning = false;
+    } else {
+      this.timer.resume();
+      this.isRunning = true;
+    }
+  }
+
+  onToggleSound () {
+    this.settings.sound = !this.settings.sound;
+  }
+
+  onToggleSpeak () {
+    this.settings.speak = !this.settings.speak;
+  }
 
 }

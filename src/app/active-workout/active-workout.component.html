@@ -1,17 +1,62 @@
 <div class="mainContent">
   <div *ngIf="this.workout">
-      {{this.workout.name}} <br />
-      {{this.workout.getDuration()}}<br />
-      <p *ngFor="let round of this.workout.rounds">
-        <span *ngFor="let action of round.exercises">
+      <span class="title">{{this.workout.name}}</span>
+      <table class="workoutHeader">
+        <tr>
+          <td>
+            <div class="title2"><span>{{this.workout.rounds.length}}</span></div>
+            <div class="title3"><span>Rounds</span></div>
+          </td>
+          <td>
+            <div class="title2"><span>{{this.formatter.formatDuration(this.workout.getDuration())}}</span></div>
+            <div class="title3"><span>Total</span></div>
+          </td>
+          <td>
+            <div class="title2"><span>{{(this.formatter.formatDuration(this.workout.getDurationWithoutPauses()))}}</span></div>
+            <div class="title3"><span>Without pauses</span></div>
+          </td>
+        </tr>
+      </table>
+
+
+      <p *ngFor="let round of this.workout.rounds; index as roundNumber">
+        <span class="roundNumber">{{roundNumber+1}}</span>
+        <span *ngFor="let action of round.exercises; index as actionNumber">
           <span [ngClass]="{'activeAction': action.isActive}">
-            {{action.isPause ? '-' : 'O'}}
+            <i class="fas fa-running" *ngIf="!action.isPause" ></i>
+            <i class="fas fa-pause" *ngIf="action.isPause" ></i>
+            &nbsp;
           </span>
         </span>
       </p>
 
     </div>
-  <button (click)="start()">TIme</button><br /><br />
-  <span class="myBig">{{this.status.timeRemaining}}</span><br />
+  <div *ngIf="this.activeAction"
+    (click)="onClickStartPause()" class="radial-progress" [attr.data-progress]="((1 - (this.status.timeRemaining / this.activeAction.duration)) * 100) | number:'1.0-0'">
+    <div class="circle">
+      <div class="mask full">
+        <div class="fill"></div>
+      </div>
+      <div class="mask half">
+        <div class="fill"></div>
+        <div class="fill fix"></div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+    <div class="inset">
+      <div class="percentage">
+        <div class="numbers">
+          <span *ngIf="this.isRunning">{{this.status.timeRemaining}}</span>
+          <i class="fas fa-play" *ngIf="!this.isRunning"></i>
+        </div>
+        </div>
+      </div>
+    </div>
   <span class="myBig" *ngIf="this.activeAction">{{this.activeAction.name}}</span>
+</div>
+
+
+<div class="buttonBar">
+  <button class="button right" (click)="onToggleSound()"><i class="fas fa-volume-up"></i></button>
+  <button class="button right" (click)="onToggleSpeak()"><i class="fas fa-microphone-slash"></i></button>
 </div>
