@@ -2,20 +2,15 @@
 <div class="navigationBar">
   <table>
     <tr>
-      <td [ngClass]="{'activeNav': this.activeNav === 0}">
-          <a routerLink="/new" routerLinkActive="active" (click)="this.activeNav = 0">
-            <i class="navigationIcon fas fa-edit"></i>
-          </a>
+      <td routerLink="/new" routerLinkActive="active" (click)="this.setNav(0)" [ngClass]="{'activeNav': this.activeNav === 0}">
+        <i class="navigationIcon fas fa-edit"></i>
       </td>
-      <td [ngClass]="{'activeNav': this.activeNav === 1}">
-          <a routerLink="/active" routerLinkActive="active" (click)="this.activeNav = 1">
-            <i class="navigationIcon fas fa-stopwatch"></i>
-          </a>
+      <td routerLink="/active" routerLinkActive="active" (click)="this.setNav(1)" [ngClass]="{'activeNav': this.activeNav === 1}">
+        <i class="navigationIcon fas fa-stopwatch"></i>
       </td>
-      <td [ngClass]="{'activeNav': this.activeNav === 2}">
-          <a routerLink="/load" routerLinkActive="active" (click)="this.activeNav = 2">
-            <i class="navigationIcon fas fa-file-upload"></i>
-          </a>
+      <td routerLink="/load" routerLinkActive="active" (click)="this.setNav(2)" [ngClass]="{'activeNav': this.activeNav === 2}">
+
+        <i class="navigationIcon fas fa-file-upload"></i>
       </td>
     </tr>
   </table>
