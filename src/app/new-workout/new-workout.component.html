@@ -16,9 +16,26 @@
 
 
 <div class="mainContent" *ngIf="this.workout">
-  <span>Total duration: {{this.formatter.formatDuration(this.workout.getDuration())}}</span>
-  <br />
-  <span>Exercise duration: {{(this.formatter.formatDuration(this.workout.getDurationWithoutPauses()))}}</span>
+  <span class="title">{{this.workout.name}}</span>
+  <table class="workoutHeader">
+    <tr>
+      <td>
+        <div class="title2"><span>{{this.workout.rounds.length}}</span></div>
+        <div class="title3"><span>Rounds</span></div>
+      </td>
+      <td>
+        <div class="title2"><span>{{this.formatter.formatDuration(this.workout.getDuration())}}</span></div>
+        <div class="title3"><span>Total</span></div>
+      </td>
+      <td>
+        <div class="title2"><span>{{(this.formatter.formatDuration(this.workout.getDurationWithoutPauses()))}}</span></div>
+        <div class="title3"><span>Without pauses</span></div>
+      </td>
+    </tr>
+  </table>
+
+
+
   <ul>
     <li *ngFor="let round of this.workout.rounds; index as i" class="newWorkoutRound">
       <div class="headerWorkoutRound">
@@ -44,10 +61,8 @@
     </li>
   </ul>
   <button class="button" (click)="addRound($event)">Add round</button>
-
 </div>
 
-<button class="button" (click)="onCreate()">Create</button>
 <div class="buttonBar">
   <input class="right" type="checkbox" name="generateWarmup" [checked]="this.addWarmup"/>
     <span (click)="this.addWarmup = !this.addWarmup" class="right">Add warmup</span>

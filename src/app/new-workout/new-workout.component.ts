@@ -9,6 +9,8 @@ import { ModelService } from '../model.service';
 import { SerializerService } from '../serializer.service';
 import { FormatterService } from '../formatter.service';
 import * as staticData from '../../assets/data.json';
+import { Router } from '@angular/router';
+import { Constants } from '../Constants';
 
 
 @Component({
@@ -23,15 +25,20 @@ export class NewWorkoutComponent implements OnInit {
   roundIndex: number = 0;
   exerciseIndex: number = 0;
   addWarmup: boolean = false;
+  constants: any = null;
+
+  ACTIVE_ROUTE: string = '/active';
 
   constructor(
     private modelService: ModelService,
     public formatter: FormatterService,
-    private serializer: SerializerService
+    private serializer: SerializerService,
+    public router: Router,
     ) { }
 
-  ngOnInit() {
-    this.workout = this.modelService.getWorkout();
+    ngOnInit() {
+      this.workout = this.modelService.getWorkout();
+      this.constants = new Constants();
   }
 
   deleteAction (round: number, action: number) {
@@ -83,22 +90,6 @@ export class NewWorkoutComponent implements OnInit {
     this.newAction = null;
   }
 
-
-  onCreate () {
-    const rounds = [];
-    for (let i = 0; i < 3; i++) {
-      rounds.push(new Round([
-        new Exercise('Push ups', 10),
-        new Pause(10),
-        new Exercise('Push ups', 10),
-        new Pause(10),
-        new Exercise('Push ups', 10),
-        new Pause(10),
-      ]));
-    }
-    this.workout.rounds = rounds;
-  }
-
   onConfirmWorkoutCreation () {
     if (this.addWarmup) {
       const warmup: Round = this.serializer.deserializeRound(JSON.stringify(staticData.warmup));
@@ -106,6 +97,8 @@ export class NewWorkoutComponent implements OnInit {
     }
     this.workout.rounds.unshift(new Round([new Pause(10)]));
     this.modelService.setWorkout(this.workout);
+    this.modelService.setActiveNav(1);
+    this.router.navigateByUrl(this.constants.get('routeActive'));
   }
 
 
