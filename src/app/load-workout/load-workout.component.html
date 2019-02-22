@@ -1,5 +1,5 @@
 <div class="mainContent">
-	<div *ngFor="let workout of this.workouts">
+	<div *ngFor="let workout of this.workouts" (click)="onActivateWorkout(workout)">
 		<p>{{workout.name}}</p>
 		<p>{{workout.getDuration()}}</p>
 		<p>{{workout.getDurationWithoutPauses()}}</p>
