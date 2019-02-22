@@ -9,7 +9,9 @@ import { SerializerService } from './serializer.service';
 })
 export class ModelService {
 
-  workout: Workout;
+  private workout: Workout;
+  private activeNav: number;
+
   constructor() {}
 
   getWorkout () {
@@ -18,6 +20,14 @@ export class ModelService {
 
   setWorkout (workout: Workout) {
     this.workout = workout;
+  }
+
+  getActiveNav () {
+    return this.activeNav;
+  }
+
+  setActiveNav (nav: number) {
+    this.activeNav = nav;
   }
 
   getSavedWorkouts () {
