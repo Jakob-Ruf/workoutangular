@@ -46,8 +46,8 @@
     <div class="inset">
       <div class="percentage">
         <div class="numbers">
-          <span *ngIf="this.isRunning">{{this.status.timeRemaining}}</span>
-          <i class="fas fa-play" *ngIf="!this.isRunning"></i>
+          <span class="numberText" *ngIf="this.isRunning">{{this.status.timeRemaining}}</span>
+          <i class="fas fa-play circularIcon" *ngIf="!this.isRunning"></i>
         </div>
         </div>
       </div>
