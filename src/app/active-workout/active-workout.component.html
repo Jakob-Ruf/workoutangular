@@ -57,6 +57,11 @@
 
 
 <div class="buttonBar">
-  <button class="button right" (click)="onToggleSound()"><i class="fas fa-volume-up"></i></button>
-  <button class="button right" (click)="onToggleSpeak()"><i class="fas fa-microphone-slash"></i></button>
+  <button class="button right" (click)="onToggleSound()">
+    <i *ngIf="!this.settings.sound" class="fas fa-volume-off"></i>
+    <i *ngIf="this.settings.sound" class="fas fa-volume-up"></i></button>
+  <button class="button right" (click)="onToggleSpeak()">
+    <i *ngIf="!this.settings.speak" class="fas fa-microphone-slash"></i>
+    <i *ngIf="this.settings.speak" class="fas fa-microphone"></i>
+  </button>
 </div>

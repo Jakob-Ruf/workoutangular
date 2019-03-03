@@ -6,6 +6,7 @@ import { Action } from '../classes/Action';
 import { Exercise } from '../classes/Exercise';
 import { Pause } from '../classes/Pause';
 import { FormatterService } from '../formatter.service';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-active-workout',
@@ -29,11 +30,16 @@ export class ActiveWorkoutComponent implements OnInit {
     timeRemaining: 0
   };
   timer: any = null;
+  audio = {
+    bell: new Audio('assets/Bell2.wav'),
+    clock: new Audio('assets/Clock.wav')
+  }
 
   constructor(
     private modelService: ModelService,
     private helper: HelperService,
-    public formatter: FormatterService
+    public formatter: FormatterService,
+    private settingsService: SettingsService
     ) { }
 
   ngOnInit() {
@@ -41,6 +47,8 @@ export class ActiveWorkoutComponent implements OnInit {
     if (this.workout.getDuration() === 0) {
       this.workout = this.modelService.getSavedWorkouts()[0];
     }
+    this.audio.bell.load();
+    this.audio.clock.load();
   }
 
   start (): void {
@@ -78,19 +86,21 @@ export class ActiveWorkoutComponent implements OnInit {
 
   playTenSeconds(): void {
     if (this.activeAction.isPause) {
-      let exercise = this.workout.rounds[this.roundIndex].exercises[this.exerciseIndex + 1];
-      if (!exercise && this.workout.rounds[this.roundIndex + 1]) {
-        exercise = this.workout.rounds[this.roundIndex + 1].exercises[this.exerciseIndex];
+      if (this.settings.speak) {
+        console.log('speaking');
+        let exercise = this.workout.rounds[this.roundIndex].exercises[this.exerciseIndex + 1];
+        if (!exercise && this.workout.rounds[this.roundIndex + 1]) {
+          exercise = this.workout.rounds[this.roundIndex + 1].exercises[this.exerciseIndex];
+        }
+        const text = exercise.toString();
+        const speech: SpeechSynthesis = window.speechSynthesis;
+        const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en';
+        speech.speak(utterance);
       }
-      const text = exercise.toString();
-      const speech: SpeechSynthesis = window.speechSynthesis;
-      const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en';
-      speech.speak(utterance);
-    } else {
-      const audio = new Audio('assets/Clock.wav');
-      audio.load();
-      audio.play();
+    } else if (this.settings.sound) {
+      console.log('Playing sound clock');
+      this.audio.clock.play();
     }
   }
 
@@ -127,9 +137,10 @@ export class ActiveWorkoutComponent implements OnInit {
   }
 
   playBell (): void {
-    const audio = new Audio('assets/Bell2.wav');
-    audio.load();
-    audio.play();
+    if (this.settings.sound) {
+      console.log('Playing bell')
+      this.audio.bell.play();
+    }
   }
 
   onClickStartPause (): void {
@@ -147,11 +158,15 @@ export class ActiveWorkoutComponent implements OnInit {
   }
 
   onToggleSound () {
+    console.log('Toggled sound settings');
     this.settings.sound = !this.settings.sound;
+    this.settingsService.set('sound', this.settings.sound);
   }
 
   onToggleSpeak () {
+    console.log('Toggled speak settings');
     this.settings.speak = !this.settings.speak;
+    this.settingsService.set('speak', this.settings.speak);
   }
 
 }
