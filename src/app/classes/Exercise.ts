@@ -13,6 +13,6 @@ export class Exercise extends Action {
   }
 
   toString() {
-    return `${this.name}: ${this.duration} seconds`;
+    return `${this.duration} seconds of ${this.name}`;
   }
 }
