@@ -18,9 +18,14 @@ export class SerializerService {
    * no JSON.parse since that loses prototype functions
    * @param input serialized workout string
    */
-  deserializeWorkout (input: string): Workout {
+  deserializeWorkout (input: string | object): Workout {
     try {
-      const oWorkout = JSON.parse(input);
+      let oWorkout;
+      if (typeof input === "string") {
+        oWorkout = JSON.parse(input);
+      } else {
+        oWorkout = input
+      }
       const aRounds = [];
       for (const round of oWorkout.rounds) {
         const aActions = [];

@@ -44,8 +44,12 @@ export class ActiveWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.workout = this.modelService.getWorkout();
+    const that = this;
     if (this.workout.getDuration() === 0) {
-      this.workout = this.modelService.getSavedWorkouts()[0];
+      this.modelService.getSavedWorkouts(function(workouts){
+        that.workout = workouts[0];
+      });
+      // this.workout = this.modelService.getSavedWorkouts()[0];
     }
     this.audio.bell.load();
     this.audio.clock.load();

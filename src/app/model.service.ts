@@ -2,17 +2,29 @@ import { Injectable } from '@angular/core';
 import { Workout } from './classes/Workout';
 import * as staticData from '../assets/data.json';
 import { SerializerService } from './serializer.service';
+import { HelperService } from './helper.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class ModelService {
 
   private workout: Workout;
   private activeNav: number;
 
-  constructor() {}
+  constructor(
+    private helper: HelperService
+  ) {}
+
+
+
+  async getFirebaseWorkouts () {
+
+  }
 
   getWorkout () {
     return this.workout || new Workout('NEW', []);
@@ -30,17 +42,15 @@ export class ModelService {
     this.activeNav = nav;
   }
 
-  getSavedWorkouts () {
+  getSavedWorkouts (fnCallback) {
     const serializer = new SerializerService();
-    let workout: Workout;
-    let workoutTemp: any;
-    let workoutString: string;
     const workouts: Workout[] = [];
-    for (workoutTemp of staticData.workouts) {
-      workoutString = JSON.stringify(workoutTemp);
-      workout = serializer.deserializeWorkout(workoutString);
-      workouts.push(workout);
-    }
-    return workouts;
+    this.helper.getFirebase().firestore().collection('prebuilt_workouts').get().then(function(snapshot){
+      for (const workout of snapshot.docs){
+        workouts.push(serializer.deserializeWorkout(workout.data()));
+      }
+      fnCallback(workouts);
+    });
   }
+
 }
