@@ -19,20 +19,38 @@
     </table>
 
 
-    <p *ngFor="let round of this.workout.rounds; index as roundNumber">
-      <span class="roundNumber">{{roundNumber+1}}</span>
-      <span *ngFor="let action of round.exercises; index as actionNumber">
-        <span [ngClass]="{'activeAction': action.isActive}">
-          <i class="fas fa-running" *ngIf="!action.isPause"></i>
-          <i class="fas fa-pause" *ngIf="action.isPause"></i>
-          &nbsp;
+    <div *ngFor="let round of this.workout.rounds; index as roundNumber" >
+      <p class="active">
+        <span class="roundNumber">{{roundNumber+1}}&nbsp;&nbsp;</span>
+        <span *ngFor="let action of round.exercises; index as actionNumber">
+          <span [ngClass]="{'activeAction': action.isActive}">
+            <i class="fas fa-running" *ngIf="!action.isPause"></i>
+            <i class="fas fa-pause" *ngIf="action.isPause"></i>
+            &nbsp;
+          </span>
         </span>
-      </span>
-    </p>
+      </p>
+      <hr />
+    </div>
 
   </div>
   <span class="myBig" *ngIf="this.activeAction">{{this.activeAction.name}}</span>
-  <div class="progressContainer">
+  <div
+    (click)="onClickStartPause()"
+    class="progress-pie-chart"
+    [attr.data-percent]="50">
+    <!-- <div class="ppc-progress">
+      <div class="ppc-progress-fill" [style.transform]="'rotate(' + (((1 - (this.status.timeRemaining / this.activeAction.duration)) * 3.6) | number:'1.0-0') + 'deg)'"></div>
+    </div> -->
+    <div class="ppc-percents">
+      <div class="pcc-percents-wrapper">
+        <!-- <span>{{this.activeAction.duration - this.status.timeRemaining}}</span> -->
+        <span *ngIf="this.isRunning">{{this.status.timeRemaining}}</span>
+        <i class="fas fa-play circularIcon" *ngIf="!this.isRunning"></i>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="progressContainer">
     <div *ngIf="this.activeAction" (click)="onClickStartPause()" class="radial-progress" [attr.data-progress]="((1 - (this.status.timeRemaining / this.activeAction.duration)) * 100) | number:'1.0-0'">
       <div class="circle">
         <div class="mask full">
@@ -53,7 +71,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 

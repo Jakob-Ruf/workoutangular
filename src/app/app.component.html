@@ -1,5 +1,24 @@
 <!-- <button (click)="onPlayAudio()">Click</button> -->
-<div class="navigationBar">
+<div>
+  <div class="navigationBar" *ngIf="this.activeNav !== 0 && this.activeNav !== 1 && this.activeNav !== 2">
+    <table>
+      <tr>
+        <td routerLink="/new" routerLinkActive="active" (click)="this.setNav(0)" [ngClass]="{'activeNav': this.activeNav === 0}">
+          <i class="navigationIcon fas fa-edit"></i>New workout
+        </td>
+      </tr><tr>
+        <td routerLink="/active" routerLinkActive="active" (click)="this.setNav(1)" [ngClass]="{'activeNav': this.activeNav === 1}">
+          <i class="navigationIcon fas fa-stopwatch"></i>Active workout
+        </td>
+      </tr><tr>
+        <td routerLink="/load" routerLinkActive="active" (click)="this.setNav(2)" [ngClass]="{'activeNav': this.activeNav === 2}">
+          <i class="navigationIcon fas fa-file-upload"></i>Load workout
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="navigationBar" *ngIf="this.activeNav === 0 || this.activeNav === 1 || this.activeNav === 2">
   <table>
     <tr>
       <td routerLink="/new" routerLinkActive="active" (click)="this.setNav(0)" [ngClass]="{'activeNav': this.activeNav === 0}">

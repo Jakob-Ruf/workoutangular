@@ -1,9 +1,9 @@
 <div class="mainContent">
 	<div *ngFor="let workout of this.workouts" (click)="onActivateWorkout(workout)">
 		<p>{{workout.name}}</p>
-		<p>{{workout.getDuration()}}</p>
-		<p>{{workout.getDurationWithoutPauses()}}</p>
-		<p>{{workout.rounds.length}}</p>
+		<p>Duration: {{(workout.getDuration() / 60).toFixed(0)}}:{{workout.getDuration() % 60}}</p>
+		<p>Without pauses: {{(workout.getDurationWithoutPauses() / 60).toFixed(0)}}:{{workout.getDurationWithoutPauses() % 60}}</p>
+		<p>{{workout.rounds.length}} rounds</p>
 		<hr />
 	</div>
 </div>

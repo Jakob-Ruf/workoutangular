@@ -1,14 +1,26 @@
 <div class="myDialog" *ngIf="this.newAction">
-  <div *ngIf="!this.newAction.isPause"><span>Name: </span><input (keyup)="onKeyUpNewAction($event)" /><br /></div>
   <div>
-    <span>Duration: </span>
-    <button (click)="onChangeDuration(-10)">-10</button>
-    <button (click)="onChangeDuration(-5)">-5</button>
-    <span width="100px">{{this.newAction.duration}}</span>
-    <button (click)="onChangeDuration(+5)">+5</button>
-    <button (click)="onChangeDuration(+10)">+10</button>
+    <div *ngIf="!this.newAction.isPause">
+      <div><span>Name: </span></div>
+      <div><input class="textInput" (keyup)="onKeyUpNewAction($event)" /></div>
+    </div>
+    <div>
+      <div>
+        <span>Duration: </span>
+      </div>
+      <div class="actionDurationSetting">
+        <button class="button buttonOnBlue" (click)="onChangeDuration(-10)">-10</button>
+        <button class="button buttonOnBlue" (click)="onChangeDuration(-5)">-5</button>
+        <span  width="100px">{{this.newAction.duration}}</span>
+        <button class="button buttonOnBlue" (click)="onChangeDuration(+5)">+5</button>
+        <button class="button buttonOnBlue" (click)="onChangeDuration(+10)">+10</button>
+      </div>
+      <div>
+        <button class="button buttonOnBlue" (click)="onClickConfirmAdd()">Add</button>
+        <button class="button buttonOnBlue" (click)="onClickCancelAdd()">Cancel</button>
+      </div>
+    </div>
   </div>
-  <button (click)="onClickConfirmAdd()">Add</button><button (click)="onClickCancelAdd()">Cancel</button>
 </div>
 <div class="myOverlay" *ngIf="this.newAction" ></div>
 

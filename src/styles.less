@@ -20,12 +20,26 @@ body {
 
 .myDialog {
   width: 80%;
-  height: 20%;
+  height: 60%;
   position: absolute;
   top: 50px;
   left: 50px;
   z-index: 101;
-  background-color: @secondary-light;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  background-color: @primary-dark;
+}
+
+.myDialog > div {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  div {
+    margin-top: 1rem;
+  }
+}
+
+.actionDurationSetting > * {
+  margin-right: 1rem;
 }
 
 .myBig {
@@ -45,6 +59,21 @@ body {
   &:hover {
     border: 1px solid @primary-dark;
     background: @transparent;
+  }
+}
+
+.buttonOnBlue {
+  background: fade(@secondary, 100%);
+  // color: white;
+}
+
+.textInput {
+  height: 2rem;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  padding-left: 0.5rem;
+  &:hover {
+    background: rgba(0,0,0,0);
   }
 }
 
